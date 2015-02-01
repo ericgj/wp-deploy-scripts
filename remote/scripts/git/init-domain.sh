@@ -8,12 +8,15 @@ if [[ (-n $1) ]]; then
 
   mkdir -p $repodir
   cd $repodir
-  git init --bare
-  echo "source $hookdir/post-receive.sh $1" > hooks/post-receive
+
+  if [ ! -f hooks/post-receive ]; then
+    git init --bare
+    echo "source $hookdir/post-receive.sh $1" > hooks/post-receive
+  fi
   chmod +x hooks/post-receive
 
 else
-  echo "You must pass the domain name"
+  echo "You must pass the sub-domain name (top level dir)"
   exit 0
 fi
 
