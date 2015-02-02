@@ -2,7 +2,7 @@
 
 domainroot=".."
 repodir="$domainroot/repo"
-shareddir="~/$1/shared"
+shareddir="$HOME/$1/shared"
 php="php5.5"
 shareds=( "wp-content/uploads" )
 
