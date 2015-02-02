@@ -2,7 +2,7 @@
 
 domainroot=".."
 repodir="$domainroot/repo"
-shareddir="$domainroot/shared"
+shareddir="~/$1/shared"
 php="php5.5"
 shareds=( "wp-content/uploads" )
 
@@ -87,5 +87,28 @@ do
     fi
   done
 
+  ( find . -type d -exec chmod 755 {} \; \
+    && echo "... Set $branch dir permissions" \
+  )
+
+  ( find public -type f -exec chmod 644 {} \; \
+    && echo "... Set $branch file permissions" \
+  )
+
+  ( find public/wp-config.php -type f -exec chmod 640 {} \; \
+    && echo "... Set $branch wp-config.php permissions" \
+  )
+
+
 done
 
+if [ -d $shareddir ]; then
+  ( find $shareddir -type d -exec chmod 755 {} \; \
+    && echo "... Set shared dir permissions" \
+  )
+
+  ( find $shareddir -type f -exec chmod 644 {} \; \
+    && echo "... Set shared file permissions" \
+  )
+
+fi
